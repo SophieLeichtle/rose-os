@@ -7,3 +7,5 @@ target = "x86_64-rose-os.json"
 index = "https://github.com/rust-lang/crates.io-index" # I set the source to the official github index
 [http]
 proxy = "" # leaving this as a blank string resets proxy to default
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"
