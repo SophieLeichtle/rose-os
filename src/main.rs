@@ -13,17 +13,22 @@ use rose_os::println;
 pub extern "C" fn _start() -> ! {
     println!("Hello World{}", "!");
     
+    rose_os::init();
+
+    x86_64::instructions::interrupts::int3();
+
     #[cfg(test)]
     test_main();
 
-    loop {}
+    println!("No Crashes!");
+    rose_os::hlt_loop();
 }
 
 #[cfg(not(test))]
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    rose_os::hlt_loop();
 }
 
 #[cfg(test)]
